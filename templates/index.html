@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Obtener IP y su información</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f7ff;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #0099cc;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #0099cc;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+        }
+
+        button {
+            background-color: #0099cc;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #0099cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>IP Pública</h1>
+    <p>Tu dirección IP pública es: {{ ip }}</p>
+
+    <h2>Obtener información de una IP</h2>
+    <form method="POST" action="/">
+        <label for="ip_address">Ingresa una dirección IP (IPv4):</label>
+        <input type="text" id="ip_address" name="ip_address" required>
+        <button type="submit">Obtener información</button>
+    </form>
+
+    {% if user_ip %}
+        <h2>Información de la IP: {{ user_ip }}</h2>
+        <ul>
+        {% for key, value in ip_info %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <script>
+        // Autorellenar el campo de texto con la dirección IP pública
+        window.addEventListener('DOMContentLoaded', () => {
+            const ipInput = document.getElementById('ip_address');
+            const publicIP = '{{ ip }}';
+            ipInput.value = publicIP;
+        });
+    </script>
+</body>
+</html>
